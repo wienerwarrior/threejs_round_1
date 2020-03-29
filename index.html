@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My first three.js app</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+    <!--script src="https://github.com/imaya/zlib.js/blob/develop/bin/inflate.min.js"></script-->
+    <script src="https://threejs.org/examples/js/loaders/RGBELoader.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/DRACOLoader.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/SVGLoader.js"></script>
+    <script src="https://threejs.org/examples/js/geometries/DecalGeometry.js"></script>
+    <script src="https://threejs.org/examples/js/utils/BufferGeometryUtils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.6/build/dat.gui.min.js"></script>
+    <script>
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      const loader = new THREE.TextureLoader();
+      const materials = [
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/1.png')}),
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/2.png')}),
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/3.png')}),
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/4.png')}),
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/5.png')}),
+          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/6.png')}),
+          ];
+
+      var geometry = new THREE.BoxGeometry();
+      var cube = new THREE.Mesh(geometry, materials);
+      scene.add(cube);
+
+      camera.position.z = 5;
+      function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>
