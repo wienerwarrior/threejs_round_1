@@ -26,33 +26,48 @@
     <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.6/build/dat.gui.min.js"></script>
     <script>
       var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xbbe1ff)
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
       var renderer = new THREE.WebGLRenderer();
+     
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
-      const loader = new THREE.TextureLoader();
-      const materials = [
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/1.png')}),
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/2.png')}),
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/3.png')}),
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/4.png')}),
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/5.png')}),
-          new THREE.MeshBasicMaterial({map: loader.load('./src/assets/6.png')}),
-          ];
+        const loader = new THREE.TextureLoader();
+        const materials = [
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/1.png") }),
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/2.png") }),
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/3.png") }),
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/4.png") }),
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/5.png") }),
+          new THREE.MeshBasicMaterial({ map: loader.load("./src/assets/6.png") })
+        ];
 
-      var geometry = new THREE.BoxGeometry();
-      var cube = new THREE.Mesh(geometry, materials);
-      scene.add(cube);
+        var geometry = new THREE.BoxGeometry();
+        var cube = new THREE.Mesh(geometry, materials);
+        scene.add(cube);
+
+   
+
+      const radius = 1;
+      const detail = 1;
+      const tetGeomatry = new THREE.TetrahedronGeometry(radius, detail);
+      let material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, wireframeLinewidth: 1});
+      let tetra = new THREE.Mesh(tetGeomatry, material);
+      tetra.receiveShadow = true;
+      scene.add(tetra);
 
       camera.position.z = 5;
       function animate() {
-        requestAnimationFrame(animate);
+          requestAnimationFrame(animate);
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
+        tetra.rotation.x += 0.01;
+        tetra.rotation.y += 0.01;
         renderer.render(scene, camera);
       }
       animate();
+    
     </script>
   </body>
 </html>
